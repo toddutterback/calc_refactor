@@ -1,40 +1,35 @@
 #variables
-Calc_intro = "----Welcome to the Ruby Calculator----\n-enter equation, Please use spaces"
-Which_operator = 'which operator would you like to use? (+ - * /)'
-Second_number = "What is the second number you would like to use?"
+Calc_intro = "----Welcome to the Ruby Calculator----\n--Enter equation below. Please use spaces--"
+Which_operator = "Choose your operator (+ - * /)"
+Second_number = "Second number?"
 @operator_array = ["+", "-", "*", "/"]
 
-#==========Calculator Answer Function==============
-def calc_answer
-  if @operator_in == "/" && @second_num.to_i == 0
-    puts "you cant divide by 0!!"
-    main_page
-  else
-    case @operator_in
-      when "+"
-        @answer = @first_num.to_f + @second_num.to_f
-      when "-"
-        @answer = @first_num.to_f - @second_num.to_f
-      when "*"
-        @answer = @first_num.to_f * @second_num.to_f
-      when "/"
-        @answer = @first_num.to_f / @second_num.to_f
-      else
-        puts "Try Again"
-    end
-  end
-end
-
-#========MAIN PAGE===========
-def main_page
+#==========Main Page=================
+def main_calc
+  while true do 
     puts Calc_intro
     input = gets.chomp
     values = input.split(" ")
       @first_num = values[0]
       @operator_in = values[1]
       @second_num = values[2]
-    calculator
+    calc_answer
+  end 
 end
+
+#==========Calculator Answer Function==============
+def calc_answer
+  operator_hash = { "+" => @first_num.to_f + @second_num.to_f, "-" => @first_num.to_f - @second_num.to_f, "*" => @first_num.to_f * @second_num.to_f,"/" => @first_num.to_f / @second_num.to_f}
+    case @operator_in
+      when @operator_in == "/" && @second_num.to_i == 0
+        puts "LOLzzz nice try Champ"
+        main_calc
+      else 
+       formula = operator_hash.values
+       puts "#{formula}"
+    end   
+    continue    
+  end  
 
 #========WHICH OPERATOR==========
 def operator
@@ -73,9 +68,10 @@ def continue
     print"choose again "
     operator
   when 2
-    main_page
+    main_calc
   when 3
     puts "Thank you, come again"
+    exit(0)
   end
 end
 
@@ -88,4 +84,4 @@ def calculator
   continue
 end
 
-main_page
+main_calc
